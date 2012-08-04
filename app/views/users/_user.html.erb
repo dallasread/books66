@@ -1,0 +1,35 @@
+<% if user_signed_in? %>
+	<li class="user">
+		<a href="<%= user_path(user) %>">
+			<%= image_tag(user.avatar.url(:thumb)) %>
+			<div class="info">
+				<%= link_to user.name, user, :class => "name" %>
+				<p class="user_name"><%= pluralize(user.stories.size, "story") %></p>
+			</div>
+		
+			<% followship = Followship.find_by_user_id_and_follow_id(current_user, user) %>
+		
+			<% if followship %>
+				<%= link_to "Unfollow", followship, :method => :delete, :remote => true, :id => "followship_#{followship.id}", :class => "light_gray button small", :style => "float: right; " %>
+			<% else %>
+				<%= link_to "Follow", followships_path(:follow_id => user), :method => :post, :remote => true, :id => "followship_#{user.id}", :class => "blue button small", :style => "float: right; " %>
+			<% end %>
+		
+			<div class="clear"></div>
+		</a>
+	</li>
+	
+<% else %>
+
+	<li class="user">
+		<a href="<%= user_path(user) %>">
+			<%= image_tag(user.avatar.url(:thumb)) %>
+			<div class="info">
+				<%= link_to user.name, user, :class => "name" %>
+				<p class="user_name"><%= pluralize(user.stories.size, "story") %></p>
+			</div>
+			<div class="clear"></div>
+		</a>
+	</li>
+	
+<% end %>

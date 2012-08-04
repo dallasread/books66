@@ -1,0 +1,26 @@
+<% title link_to("What's Happening?", news_path) %>
+
+<% if current_user.followships.size == 0 %>
+	
+	You aren't following anyone yet!<br /><br />
+	Head on over to the <%= link_to "Discover People", discover_people_path %> or the <%= link_to "Discover Stories", discover_stories_path %> page to get started!
+
+<% else %>
+
+	<%= link_to "Who am I following?", following_path, :style => " float: right; ", :class => "button small blue" %><br /><br />
+
+
+	<% if @news.size == 0 %>
+
+		It looks like there is no news right now.<br /><br />
+		Jump on over to <%= link_to "discover people", discover_people_path %> or <%= link_to "discover stories", discover_stories_path %>.
+
+	<% else %>
+	
+		<ul id="story_list">
+			<%= render @news %>
+		</ul>
+	
+	<% end %>
+	
+<% end %>

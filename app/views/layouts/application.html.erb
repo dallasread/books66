@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Books66</title>
+  <%= stylesheet_link_tag "mobile", :media => "screen and (max-width: 750px)" %>
+	<%= stylesheet_link_tag "application", :media => "screen and (min-width: 750px)" %>
+  <%= javascript_include_tag "application" %>
+	
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="viewport" content="initial-scale=1.0, width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	
+  <%= csrf_meta_tags %>
+</head>
+<body>
+	
+	<div class="container">
+		
+		<div id="header">
+
+			<h1 id="logo"><%= link_to image_tag("logo.png"), root_path %></h1>
+
+			<ul id="links" class="desktop_only">
+				<% if user_signed_in? %>
+					<li><%= link_to "What's Happening?", news_path %></li>
+					<li><%= link_to "Begin A Story", new_story_path %></li>
+					<li><%= link_to "Discover", discover_stories_path %></li>
+
+					<% unless current_user.favourites.empty? %>
+						<li><%= link_to "Favourites", favourites_path %></li>
+					<% end %>
+					
+					<li><%= link_to "My Stories", stories_path %></li>
+					<li><%= link_to "My Profile", edit_user_registration_path %></li>
+					<li><%= link_to "Sign Out", destroy_user_session_path, :method => :delete %></li>
+				<% else %>
+					<li><%= link_to "66Books.co", root_path %></li>
+					<li><%= link_to "Sign In", new_user_session_path %></li>
+					<li><%= link_to "Sign Up", new_user_session_path %></li>
+				<% end %>
+			</ul>
+			
+			<p id="desktop-only" class="mobile_only">
+				We're desktop-only for now... visit 66Books.co on your computer to sign up!
+			</p>
+
+			<div class="clear"></div>
+
+		</div>
+	
+	</div>
+	
+	<div class="container" id="main_container">
+		
+		<% if !user_signed_in? && request.path != new_user_registration_path && request.path != new_user_session_path %>
+			<p id="welcome">
+				<strong>66Books is a tool used to share your story (Bible-based message) with the world.</strong><br /><br />
+				When you <%= link_to "sign up", new_user_session_path %>, you'll be able to favourite stories, follow others' work, write your own story, and get rid of this annoying message.<br /><br />
+				<%= link_to "Start your story now!", new_user_session_path, :class => "small green button" %>
+			</p>
+		<% end %>
+
+		<div class="inner_container">
+
+			<div id="bible">
+				
+				<div id="bible_wrapper" class="inner_wrapper">
+					
+					<h1 class="title"><%= link_to "Genesis 1", "#" %></h1>
+					
+					<% if user_signed_in? && @stories %>
+						<ul id="ref_picker" class="picker">
+							<%= render :text => "none" %>
+						</ul>
+					<% end %>
+					
+				</div>
+				
+				<div class="innery">
+				
+					<ul id="verses">
+						<li class="verse" data-reference="1 Corinthians 1:9"><a href="#" class="verse_number">9</a> I said in my heart, "I have acquired great twisdom, surpassing all who were over Jerusalem before me, and my heart has had great experience of wisdom and knowledge."</li>
+						<li class="verse" data-reference="1 Corinthians 1:10"><a href="#"  class="verse_number">10</a> And I uapplied my heart to know wisdom and to know vmadness and folly. I perceived that this also is but ra striving after wind.</li>
+						<li class="verse" data-reference="1 Corinthians 1:9"><a href="#" class="verse_number">9</a> I said in my heart, "I have acquired great twisdom, surpassing all who were over Jerusalem before me, and my heart has had great experience of wisdom and knowledge."</li>
+						<li class="verse" data-reference="1 Corinthians 1:10"><a href="#"  class="verse_number">10</a> And I uapplied my heart to know wisdom and to know vmadness and folly. I perceived that this also is but ra striving after wind.</li>
+						<li class="verse" data-reference="1 Corinthians 1:9"><a href="#" class="verse_number">9</a> I said in my heart, "I have acquired great twisdom, surpassing all who were over Jerusalem before me, and my heart has had great experience of wisdom and knowledge."</li>
+						<li class="verse" data-reference="1 Corinthians 1:10"><a href="#"  class="verse_number">10</a> And I uapplied my heart to know wisdom and to know vmadness and folly. I perceived that this also is but ra striving after wind.</li>
+					</ul>
+				
+				</div>
+			
+			</div>
+
+			<div id="full_story">
+				
+				<div id="stories_wrapper" class="inner_wrapper">
+
+					<h1 id="story_title" class="title"><%= yield :title %></h1>
+				
+					<% if user_signed_in? && @stories %>
+						<ul id="stories" class="picker">
+							<%= render :collection => @stories, :partial => "stories/menu_story" %>
+						</ul>
+					<% end %>
+				
+				</div>
+				
+				<div class="innery">
+					<%= yield %>
+				</div>
+			</div>
+		
+			<div class="clear"></div>
+		
+		</div>
+
+	</div>
+
+</body>
+</html>

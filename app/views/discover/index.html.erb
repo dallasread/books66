@@ -1,0 +1,24 @@
+<% title link_to("Discover Stories", discover_stories_path) %>
+
+<% if user_signed_in? %>
+
+	<h3 id="discover_meta">
+		<%= link_to "Stories", discover_stories_path %> |
+		<%= link_to "People", discover_people_path %>
+	</h3>
+	
+<% end %>
+
+
+<% if @community.empty? %>
+
+	It looks like you're following everyone on 66Books - there's nothing to discover.<br /><br />
+	Check out <%= link_to "What's Happening?", news_path %>.
+
+<% else %>
+
+	<ul id="story_list">
+		<%= render @community %>
+	</ul>
+	
+<% end %>

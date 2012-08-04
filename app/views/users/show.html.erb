@@ -1,0 +1,20 @@
+<% title link_to(@user.name, @user) %>
+
+<% if user_signed_in? && current_user != @user %>
+	<% if @followship %>
+		<%= link_to "Unfollow", @followship, :method => :delete, :remote => true, :id => "followship_#{@followship.id}", :class => "light_gray button small", :style => "float: right; " %>
+	<% else %>
+		<%= link_to "Follow", followships_path(:follow_id => @user), :method => :post, :remote => true, :id => "followship_#{@user.id}", :class => "blue button small", :style => "float: right; " %>
+	<% end %>
+<% end %>
+
+<%= image_tag(@user.avatar.url(:thumb), :style => "float: left; ") %><br />
+<p style="float: left; font-style: oblique; font-size: .8em; color: #aaa; margin-left: 30px; ">
+<%= pluralize(@user.stories.count, "Story") %> Since <%= @user.created_at.strftime("%A, %B %d, %Y") %>
+</p>
+
+<div class="clear"><br /></div>
+
+<ul id="story_list">
+	<%= render @user.stories %>
+</ul>

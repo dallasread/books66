@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Story:</b>
+  <%= @note.story_id %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%= @note.user_id %>
+</p>
+
+<p>
+  <b>Body:</b>
+  <%= @note.body %>
+</p>
+
+<p>
+  <b>Ordinal:</b>
+  <%= @note.ordinal %>
+</p>
+
+
+<%= link_to 'Edit', edit_note_path(@note) %> |
+<%= link_to 'Back', notes_path %>

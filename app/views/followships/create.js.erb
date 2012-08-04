@@ -1,0 +1,1 @@
+$("#followship_<%= @followship.follow_id %>").replaceWith("<%= j link_to("Unfollow", @followship, :method => :delete, :remote => true, :id => "followship_#{@followship.id}", :class => "light_gray button small", :style => "float: right; ") %>")

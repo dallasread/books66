@@ -1,0 +1,10 @@
+<%= title link_to("My Stories", stories_path) %>
+
+<% if current_user.stories.size == 0 %>
+	You don't have any stories.<br /><br />
+	<%= link_to "Create your own", new_story_path %> or head on over to the <%= link_to "Discover", discover_stories_path %> to see what others are saying!
+<% else %>
+	<ul id="story_list">
+		<%= render @stories %>
+	</ul>
+<% end %>

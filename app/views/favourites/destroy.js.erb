@@ -1,0 +1,1 @@
+$("#favourite_<%= @favourite.id %>").replaceWith("<%= j link_to(("Favourite &nbsp; &#9733;").html_safe, favourites_path(:story_id => @favourite.story), :method => :post, :remote => true, :id => "favourite_#{@favourite.story_id}", :class => "light_gray button small", :style => "float: right; ") %>")

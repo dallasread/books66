@@ -1,0 +1,9 @@
+<% title link_to("Favourites", favourites_path) %>
+
+<% if @favourites.empty? %>
+	You haven't favourited anything yet!
+<% else %>
+	<ul id="story_list">
+		<%= render @favourites %>
+	</ul>
+<% end %>

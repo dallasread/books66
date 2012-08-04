@@ -1,0 +1,23 @@
+<% title link_to(@story.name, @story) %>
+
+<% if user_signed_in? %>
+	<% if @favourite %>
+		<%= link_to ("Favourite &nbsp; &#9733;").html_safe, @favourite, :method => :delete, :remote => true, :id => "favourite_#{@favourite.id}", :class => "blue button small", :style => "float: right; " %>
+	<% else %>
+		<%= link_to ("Favourite &nbsp; &#9733;").html_safe, favourites_path(:story_id => @story), :method => :post, :remote => true, :id => "favourite_#{@story.id}", :class => "light_gray button small", :style => "float: right; " %>
+	<% end %>
+<% end %>
+
+<%= link_to ("Tweet &nbsp; &#9732;").html_safe, "http://twitter.com/home/?status=Check out #{@story.name} at #{quick_story_url(@story)} via @66booksco", :class => "small blue button", :style => "float: right; margin-right: 10px;", :target => "_blank" %>
+
+<p>by <%= link_to @story.user.name, @story.user %></p>
+
+<br /><br />
+
+<hr />
+
+<ul id="storyline">
+	<li class="note">
+		<div class="note_area" contenteditable="true"></div>
+	</li>
+</ul>

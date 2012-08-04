@@ -1,0 +1,18 @@
+<% title link_to("Discover People", discover_people_path) %>
+
+<h3 id="discover_meta">
+	<%= link_to "Stories", discover_stories_path %> |
+	<%= link_to "People", discover_people_path %>
+</h3>
+
+<% if @users.size == 0 %>
+
+	It looks like you're following <em>everyone</em> on 66Books. Invite some more friends!
+	
+<% else %>
+
+	<ul id="story_list">
+		<%= render @users %>
+	</ul>
+	
+<% end %>
