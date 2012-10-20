@@ -28,7 +28,7 @@
 
 	<div class="field">
 		<%= f.label :avatar, "Profile Image" %><br />
-		<%= image_tag(resource.avatar.url(/assets/(:thumb), :style => "float: left; ") %><br />
+		<%= image_tag(resource.avatar.url(:thumb), :style => "float: left; ") %><br />
 		<div style="margin-left: 30px; float: left; ">
 	  	Upload new image:<br />
 			<%= f.file_field :avatar %>

@@ -1,0 +1,10 @@
+$(".chapter").replaceWith("<%= j render(@chapter) %>")
+$("#reference_selector").hide()
+
+$(".book_select").removeClass("selected")
+$(".book_select[data-permalink='<%= @chapter.book.permalink %>']").click()
+$(".chapter_select").removeClass("selected")
+$(".chapter_select[href='<%= quick_chapter_path("kjv", @chapter.book.permalink, @chapter.number) %>']").addClass("selected")
+
+$.fn.resizer()
+$.fn.setMargins()

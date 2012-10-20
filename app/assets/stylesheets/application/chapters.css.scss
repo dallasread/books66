@@ -1,0 +1,97 @@
+.chapter {
+	
+	.header {
+		text-align: center;
+		max-width: 500px;
+		margin: 0 auto;
+		
+		.chapter_reference {
+			font-family: Georgia, Times, Serif;
+			font-size: 32px;
+			text-align: center;
+			padding: 40px 0px 20px 0px;
+		}
+		
+		.adjacent_chapter {
+			font-size: 36px;
+			font-weight: bold;
+			color: #eee;
+			margin-top: -55px;
+			cursor: pointer;
+			text-decoration: none;
+			
+			&:hover {
+				color: #8a0000;
+			}
+		}
+		
+		.next_chapter {
+			float: right;
+			margin-right: 6%;
+		}
+		
+		.prev_chapter {
+			float: left;
+			margin-left: 6%;
+		}
+	}
+	
+	.chapter_body {
+		font-size: 15px;
+		line-height: 30px;
+		color: #333;
+		margin: 0 auto;
+		text-align: justify;
+		overflow-y: auto;
+		
+		.chapter_body_verses {
+			margin: 0 auto;
+			width: 500px;
+		}
+		
+		p {
+			margin-bottom: 20px;
+		}
+	}
+	
+	.margin_wrapper {
+		vertical-align: middle;
+		width: 200px;
+		display: none;
+		
+		div {
+			width: 100%;
+		}
+	}
+	
+	.verse {
+		
+		.verse_body {
+			display: inline;
+		}
+		
+		.verse_reference {
+			display: inline;
+			
+			.verse_book_short, .verse_book_full, .verse_chapter_number {
+				display: none;
+			}
+		}
+		
+		.verse_number {
+			display: inline;
+			color: #fff;
+			background: #bbb;
+			font-size: 13px;
+			font-weight: bold;
+			padding: 3px 6px;
+			border-radius: 5px;
+			cursor: pointer;
+			display: inline;
+			
+			&:hover {
+				background: #8a0000;
+			}
+		}
+	}
+}

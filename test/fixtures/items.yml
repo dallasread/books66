@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  variation: MyString
+  item_id: 1
+  ref: MyString
+  ordinal: 1
+
+two:
+  variation: MyString
+  item_id: 1
+  ref: MyString
+  ordinal: 1

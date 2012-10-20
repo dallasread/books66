@@ -1,119 +1,207 @@
 <!DOCTYPE html>
+<!--<html manifest="/application.manifest">-->
 <html>
 <head>
   <title>Books66</title>
-  <%= stylesheet_link_tag "mobile", :media => "screen and (max-width: 750px)" %>
-	<%= stylesheet_link_tag "application", :media => "screen and (min-width: 750px)" %>
+	<%= stylesheet_link_tag "application" %>
   <%= javascript_include_tag "application" %>
 	
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-status-bar-style" content="black">
-	<meta name="viewport" content="initial-scale=1.0, width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<meta name="viewport" content="initial-scale=0.85, width=device-width, minimum-scale=0.85, user-scalable=no" />
 	
   <%= csrf_meta_tags %>
 </head>
 <body>
 	
-	<div class="container">
+	<div id="topbar"></div>
+	
+	<div id="main">
 		
-		<div id="header">
+		<div class="header">
+			<h1>66Books</h1>
+		</div>
+		
+		<div id="nav_wrapper">
+			<table id="nav" class="<%= "signed_in" if user_signed_in? %>">
+				<tr>
+					<td><%= link_to ("<i class=\"icon-search\"></i>").html_safe, "#search_wrapper", class: "selected", title: "Search" %></td>
+					
+					<% if user_signed_in? %>
+					
+						<td><%= link_to ("<i class=\"icon-book\"></i>").html_safe, "#stories", title: "My Stories" %></td>
+						<!--
+						<td><%= link_to ("<i class=\"icon-rss\"></i>").html_safe, "#latest", title: "News Feed" %></td>
+												<td><%= link_to ("<i class=\"icon-user-md\"></i>").html_safe, "#friends", title: "Friends" %></td>-->
+						
+						<td><%= link_to ("<i class=\"icon-lock\"></i>").html_safe, destroy_user_session_path, method: :delete, title: "Sign Out" %></td>
+					
+					<% else %>
+					
+						<td><%= link_to ("<i class=\"icon-lock\"></i>").html_safe, "#signin", title: "Sign In" %></td>
+						
+					<% end %>
 
-			<h1 id="logo"><%= link_to image_tag("logo.png"), root_path %></h1>
-
-			<ul id="links" class="desktop_only">
-				<% if user_signed_in? %>
-					<li><%= link_to "What's Happening?", news_path %></li>
-					<li><%= link_to "Begin A Story", new_story_path %></li>
-					<li><%= link_to "Discover", discover_stories_path %></li>
-
-					<% unless current_user.favourites.empty? %>
-						<li><%= link_to "Favourites", favourites_path %></li>
+				</tr>
+			</table>
+		</div>
+		
+		<div id="main_frame">
+			
+			<% if user_signed_in? %>
+				
+				<div id="latest" class="main_frame">No news for now.</div>
+			
+				<div id="friends" class="main_frame">
+					
+					<%= form_tag search_path, method: :get, remote: true, id: "friend_search" do %>
+						<%= text_field_tag :friend_search, "", placeholder: "Search...", class: "search_box" %>
+						<%= submit_tag "Search", name: nil, style: "display: none; " %>
+						<span id="friend_search_count"></span>
 					<% end %>
 					
-					<li><%= link_to "My Stories", stories_path %></li>
-					<li><%= link_to "My Profile", edit_user_registration_path %></li>
-					<li><%= link_to "Sign Out", destroy_user_session_path, :method => :delete %></li>
-				<% else %>
-					<li><%= link_to "66Books.co", root_path %></li>
-					<li><%= link_to "Sign In", new_user_session_path %></li>
-					<li><%= link_to "Sign Up", new_user_session_path %></li>
-				<% end %>
-			</ul>
+					<div id="my_friends">
+						No friends for now.
+						<!--<%= render current_user.follows %>-->
+					</div>
+					
+				</div>
 			
-			<p id="desktop-only" class="mobile_only">
-				We're desktop-only for now... visit 66Books.co on your computer to sign up!
-			</p>
-
-			<div class="clear"></div>
-
+				<div id="stories" class="main_frame">
+					<%= form_for Story.new, remote: true do |f| %>
+						<%= f.text_field :name, placeholder: "Name a New Story..." %>
+						<%= f.submit "Create Story", style: "float: right; margin-top: 5px; " %>
+						<div class="clear"></div>
+					<% end %>
+					
+					<div id="stories_list">
+						<% if @user %>
+							<%= render @user.stories.includes(:user) %>
+						<% else %>
+							<%= render current_user.stories.includes(:user) %>
+						<% end %>
+					</div>
+				</div>
+				
+			<% else %>
+				
+				<div id="signin" class="main_frame">
+					<h2 class="title">
+						You don't need a special account to use 66Books. Just use one of the ones you already have!<br /><br />
+						<span style="font-size: .8em; ">We won't post to your wall or any of that nonsense.</span>
+					</h2>
+					<br /><br />
+					<%= link_to image_tag("facebook.png"), omniauth_authorize_path("user", "facebook") %><br /><br />
+					<%= link_to image_tag("twitter.png"), omniauth_authorize_path("user", "twitter") %>
+				</div>
+			
+			<% end %>
+		
+			<div id="search_wrapper" class="main_frame">
+				
+				<%= form_tag search_path, method: :get, remote: true, id: "search" do %>
+					<%= text_field_tag :q, cookies[:q], placeholder: "Search...", class: "search_box" %>
+					<%= submit_tag "Search", name: nil, style: "display: none; " %>
+					<span id="results_count"></span>
+				<% end %>
+		
+				<div id="search_results"></div>
+			
+			</div>
+		
 		</div>
-	
+		
 	</div>
 	
-	<div class="container" id="main_container">
-		
-		<% if !user_signed_in? && request.path != new_user_registration_path && request.path != new_user_session_path %>
-			<p id="welcome">
-				<strong>66Books is a tool used to share your story (Bible-based message) with the world.</strong><br /><br />
-				When you <%= link_to "sign up", new_user_session_path %>, you'll be able to favourite stories, follow others' work, write your own story, and get rid of this annoying message.<br /><br />
-				<%= link_to "Start your story now!", new_user_session_path, :class => "small green button" %>
-			</p>
+	<div id="bible">
+		<% if cookies[:ref] %>
+			<% @ref = Chapter.find(cookies[:ref]) %>
+		<% else %>
+			<% @ref = Book.find_by_name("Genesis").chapters.first %>
 		<% end %>
-
-		<div class="inner_container">
-
-			<div id="bible">
-				
-				<div id="bible_wrapper" class="inner_wrapper">
-					
-					<h1 class="title"><%= link_to "Genesis 1", "#" %></h1>
-					
-					<% if user_signed_in? && @stories %>
-						<ul id="ref_picker" class="picker">
-							<%= render :text => "none" %>
-						</ul>
-					<% end %>
-					
-				</div>
-				
-				<div class="innery">
-				
-					<ul id="verses">
-						<li class="verse" data-reference="1 Corinthians 1:9"><a href="#" class="verse_number">9</a> I said in my heart, "I have acquired great twisdom, surpassing all who were over Jerusalem before me, and my heart has had great experience of wisdom and knowledge."</li>
-						<li class="verse" data-reference="1 Corinthians 1:10"><a href="#"  class="verse_number">10</a> And I uapplied my heart to know wisdom and to know vmadness and folly. I perceived that this also is but ra striving after wind.</li>
-						<li class="verse" data-reference="1 Corinthians 1:9"><a href="#" class="verse_number">9</a> I said in my heart, "I have acquired great twisdom, surpassing all who were over Jerusalem before me, and my heart has had great experience of wisdom and knowledge."</li>
-						<li class="verse" data-reference="1 Corinthians 1:10"><a href="#"  class="verse_number">10</a> And I uapplied my heart to know wisdom and to know vmadness and folly. I perceived that this also is but ra striving after wind.</li>
-						<li class="verse" data-reference="1 Corinthians 1:9"><a href="#" class="verse_number">9</a> I said in my heart, "I have acquired great twisdom, surpassing all who were over Jerusalem before me, and my heart has had great experience of wisdom and knowledge."</li>
-						<li class="verse" data-reference="1 Corinthians 1:10"><a href="#"  class="verse_number">10</a> And I uapplied my heart to know wisdom and to know vmadness and folly. I perceived that this also is but ra striving after wind.</li>
-					</ul>
-				
-				</div>
-			
-			</div>
-
-			<div id="full_story">
-				
-				<div id="stories_wrapper" class="inner_wrapper">
-
-					<h1 id="story_title" class="title"><%= yield :title %></h1>
-				
-					<% if user_signed_in? && @stories %>
-						<ul id="stories" class="picker">
-							<%= render :collection => @stories, :partial => "stories/menu_story" %>
-						</ul>
-					<% end %>
-				
-				</div>
-				
-				<div class="innery">
-					<%= yield %>
-				</div>
-			</div>
 		
-			<div class="clear"></div>
+		<% if user_signed_in? %>
+			<%= link_to "[+]", "#", class: "margin_view" %>
+		<% end %>
 		
+		<div id="reference_selector">
+			<div id="books">
+				<%= render Book.order(:ordinal) %>
+			</div>
+			<div id="chapters">
+				<% b = 1 %>
+				<% @ref.book.chapters_count.times do %>
+					<%= link_to b, quick_chapter_path("kjv", @ref.book.permalink, b), class: "chapter_select #{"selected" if @ref.number == b}", remote: true %>
+					<% b += 1 %>
+				<% end %>
+			</div>
 		</div>
-
+		
+		<%= render @ref %>
+	</div>
+	
+	<div id="story_wrapper">
+			<% if cookies[:story] %>
+				<%= render(partial: Story.find(cookies[:story]), :locals => { :story => :full }, layout: "stories/full") %>
+			<% elsif user_signed_in? %>
+				<div class="story">
+					<div class="header">
+						<h2 class="title">You are signed in as <b><%= current_user.username %></b>.</h2>
+					</div>
+				</div>
+			<% else %>
+				<div class="story">
+					<div class="header">
+						<h2 class="title">What is 66Books?</h2>
+					</div>
+					<div class="content">
+						<h3><i class="icon-book"></i> &nbsp;Social Bible Study.</h3>
+						<p>
+							Ever wanted to see the margins in John Wesley's Bible or read Martin Luther's notes? Do you ever wonder what your friends or pastor is reading? With 66Books, you'll know what your friends (and "celebrities") are reading, note-taking, and stories.
+						</p>
+					
+						<h3><i class="icon-road"></i> &nbsp;Simple, Fast, &amp; Powerful.</h3>
+						<p>
+							Prepare your stories quickly using our powerful search. We've also plugged you in to Greek and Hebrew lookup tools. We also save your stories for offline viewing, so you can access the power of 66Books right from your pulpit on your iPad (or other tablet).
+						</p>
+					
+						<h3><i class="icon-twitter"></i> &nbsp;Share Your Story.</h3>
+						<p>
+							Publish your story to your friends, congregation, or social media via a short, unique url (<%= link_to "http://66books.co/12345", "http://66books.co/12345" %>) so they can follow along.
+						</p>
+					
+					</div>
+				</div>
+			<% end %>
+			
+			<!--
+			<div class="content">
+							<div class="note">This is the start of an amazing note. It is going to be extraordinary. This is the start of an amazing note. It is going to be extraordinary.</div>
+							<div class="note">This is the start of an amazing note. It is going to be extraordinary. This is the start of an amazing note. It is going to be extraordinary. This is the start of an amazing note. It is going to be extraordinary. This is the start of an amazing note.</div>
+							<div class="verse">
+								<p class="short_ref">Lk 7:11</p>
+								<p class="body">There was a man sent from God, whose name was John.</p>
+							</div>
+							<div class="note">This is the start of an amazing note. It is going to be extraordinary. This is the start of an amazing note. It is going to be extraordinary. This is the start of an amazing note. It is going to be extraordinary. This is the start of an amazing note.</div>
+							<div class="verse">
+								<p class="short_ref">Lk 7:11</p>
+								<p class="body">There was a man sent from God, whose name was John.</p>
+							</div>
+							<div class="note">This is the start of an amazing note. It is going to be extraordinary. This is the start of an amazing note. It is going to be extraordinary. This is the start of an amazing note. It is going to be extraordinary. This is the start of an amazing note.</div>
+							<div class="verse">
+								<p class="short_ref">Lk 7:11</p>
+								<p class="body">There was a man sent from God, whose name was John.</p>
+							</div>
+							<div class="note">This is the start of an amazing note. It is going to be extraordinary. This is the start of an amazing note. It is going to be extraordinary. This is the start of an amazing note. It is going to be extraordinary. This is the start of an amazing note.</div>
+							<div class="verse">
+								<p class="short_ref">Lk 7:11</p>
+								<p class="body">There was a man sent from God, whose name was John.</p>
+							</div>
+							<div class="note">This is the start of an amazing note. It is going to be extraordinary. This is the start of an amazing note. It is going to be extraordinary. This is the start of an amazing note. It is going to be extraordinary. This is the start of an amazing note.</div>
+							<div class="note last"></div>
+						</div>-->
+			
+		</div>
 	</div>
 
 </body>

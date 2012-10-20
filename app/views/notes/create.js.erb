@@ -1,0 +1,3 @@
+$($(".note_area:last").parents("li").clone()).insertAfter($("#full_story .innery li:last"))
+$(".note_area:last").html("")
+$(".note_area:last").parents("li").attr("data-id", "<%= @note.id %>")

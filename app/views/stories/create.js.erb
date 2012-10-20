@@ -1,0 +1,6 @@
+<% if @story.errors.any? %>
+	alert("Story name has already been taken.")
+<% else %>
+	$("<%= j render(@story) %>").prependTo("#stories_list")
+	$("#story_name").val("")
+<% end %>

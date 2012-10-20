@@ -1,0 +1,35 @@
+#bible {
+	width: 37%;
+	position: fixed;
+	left: 26%;
+	top: 0;
+	bottom: 0;
+	overflow: hidden;
+	border-right: 1px solid #eee;
+	background: #fff;
+	z-index: 101;
+
+	.margin_view {
+		position: absolute;
+		top: 5px;
+		right: 5px;
+		color: #ccc;
+		text-decoration: none;
+		
+		&:hover {
+			color: #8a0000;
+		}
+	}
+}
+
+.word {
+	&:hover {
+		background: #FFFDB4;
+	}
+	
+	&.selected {
+		background: #ffed1f;
+		border-radius: 5px;
+		padding: 5px 3px;
+	}
+}

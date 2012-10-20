@@ -1,0 +1,17 @@
+/*
+if (!$("#<%= dom_id @chapter%>").length)
+{
+	$("#bible").html("<%= j render(@chapter) %>")
+}*/
+
+$(".chapter").replaceWith("<%= j render(@chapter) %>")
+
+$.fn.resizer()
+
+$("#bible .chapter_body").animate({
+	scrollTop: $("#bible .<%= dom_id @verse %>").offset().top - ($(window).height() / 2)
+}, 200);
+
+$("#bible .<%= dom_id @verse %>").effect("highlight", {}, 2000);
+
+$.fn.setMargins()

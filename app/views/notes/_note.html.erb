@@ -1,0 +1,3 @@
+<li id="note_<%= note.id %>" class="note" style="position: relative; " data-url="<%= story_note_path(note.story, note) %>">
+	<div class="note_area" contenteditable="true"><%= note.body.html_safe if note.body %></div>
+</li>

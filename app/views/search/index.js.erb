@@ -1,0 +1,2 @@
+$("#search_results").html("<%= j render(@verses) %>")
+$("#results_count").text("<%= pluralize(number_with_delimiter(@verses.count), "Result") %>")

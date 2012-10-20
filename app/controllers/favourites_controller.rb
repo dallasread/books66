@@ -1,5 +1,4 @@
 class FavouritesController < ApplicationController
-  before_filter :find_stories
   before_filter :authenticate_user!
   
   # GET /favourites

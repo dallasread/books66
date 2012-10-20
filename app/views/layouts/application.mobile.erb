@@ -1,0 +1,38 @@
+<!DOCTYPE html> 
+<html> 
+	<head> 
+		<title>66Books.co</title>
+	
+		<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+		<meta name="robots" content="index, follow">
+	
+		<meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no">
+	
+		<!--
+		<link rel="apple-touch-icon" href="" />
+				<link rel="apple-touch-startup-image" href="" />-->
+		
+	
+		<%= stylesheet_link_tag    "mobile" %>
+	  <%= javascript_include_tag "mobile" %>
+	  <%= csrf_meta_tags %>
+	</head> 
+<body>
+	
+	<h1 id="title"><%= yield :title %></h1>
+
+	<div class="container">
+		<div id="yield">
+			<%= yield %>		
+		</div>
+	</div>
+
+	<p id="footer">
+		&copy; 2012 66Books.co
+	</p>
+
+</body>
+</html>

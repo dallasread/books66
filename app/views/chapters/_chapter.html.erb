@@ -1,0 +1,14 @@
+<div id="<%= dom_id chapter %>" class="chapter" data-url="<%= quick_chapter_path("kjv", chapter.book, chapter.number) %>">
+	
+	<div class="header">
+		<h2 class="chapter_reference"><%= chapter.full_reference %></h2>
+		<%= link_to("<", quick_chapter_path("kjv", chapter.prev.book, chapter.prev.number), class: "prev_chapter adjacent_chapter", remote: true) if chapter.prev %>
+		<%= link_to(">", quick_chapter_path("kjv", chapter.next.book, chapter.next.number), class: "next_chapter adjacent_chapter", remote: true) if chapter.next %>
+	</div>
+	
+	<div class="chapter_body">
+		<table class="chapter_body_verses">
+			<%= render(collection: chapter.verses, partial: "verses/annotated") %>
+		</table>
+	</div>
+</div>

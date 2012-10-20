@@ -1,0 +1,43 @@
+#search_wrapper {
+	line-height: 18px;
+	
+	#results_count {
+		margin: 1px 5px 5px 5px;
+		float: right;
+		color: #999;
+		font-size: 11px;
+	}
+	
+	#search_results {
+		overflow-y: auto;
+		margin: 25px -15px 0 -15px;
+	
+		.verse {
+			padding: 10px 20px;
+			cursor: pointer;
+		
+			.verse_reference {
+				font-size: 14px;
+				font-weight: bold;
+				color: #333;
+			
+				.verse_book_short {
+					display: none;
+				}
+			}
+		
+			.verse_body {
+				color: #777;
+				font-size: 13px;
+			}
+		
+			&.selected {
+				background: #ddd !important;
+			}
+		
+			&.hover {
+				background: #fff;
+			}
+		}
+	}
+}

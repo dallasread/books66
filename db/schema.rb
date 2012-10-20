@@ -11,7 +11,24 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120802194826) do
+ActiveRecord::Schema.define(:version => 20121019123211) do
+
+  create_table "books", :force => true do |t|
+    t.string   "name"
+    t.string   "permalink"
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+    t.string   "abbr"
+    t.integer  "chapters_count", :default => 0
+    t.integer  "ordinal"
+  end
+
+  create_table "chapters", :force => true do |t|
+    t.integer  "number"
+    t.integer  "book_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "favourites", :force => true do |t|
     t.integer  "story_id"
@@ -27,6 +44,16 @@ ActiveRecord::Schema.define(:version => 20120802194826) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "items", :force => true do |t|
+    t.string   "variation"
+    t.integer  "item_id"
+    t.string   "ref"
+    t.integer  "ordinal"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.integer  "story_id"
+  end
+
   create_table "notes", :force => true do |t|
     t.integer  "story_id"
     t.integer  "user_id"
@@ -39,6 +66,14 @@ ActiveRecord::Schema.define(:version => 20120802194826) do
   create_table "stories", :force => true do |t|
     t.string   "name"
     t.integer  "user_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.string   "permalink"
+  end
+
+  create_table "translations", :force => true do |t|
+    t.string   "name"
+    t.string   "permalink"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
@@ -68,6 +103,15 @@ ActiveRecord::Schema.define(:version => 20120802194826) do
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+
+  create_table "verses", :force => true do |t|
+    t.integer  "number"
+    t.integer  "chapter_id"
+    t.text     "body"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+    t.integer  "translation_id"
+  end
 
   create_table "versions", :force => true do |t|
     t.string   "item_type",  :null => false

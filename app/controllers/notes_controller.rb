@@ -40,12 +40,15 @@ class NotesController < ApplicationController
   # POST /notes
   # POST /notes.json
   def create
-    @note = Note.new(params[:note])
+    @story = Story.find(params[:story_id])
+    @note = @story.notes.new(params[:note])
+    @note.user = current_user
 
     respond_to do |format|
       if @note.save
         format.html { redirect_to @note, notice: 'Note was successfully created.' }
         format.json { render json: @note, status: :created, location: @note }
+        format.js
       else
         format.html { render action: "new" }
         format.json { render json: @note.errors, status: :unprocessable_entity }
@@ -72,12 +75,14 @@ class NotesController < ApplicationController
   # DELETE /notes/1
   # DELETE /notes/1.json
   def destroy
-    @note = Note.find(params[:id])
+    @story = Story.find(params[:story_id])
+    @note = @story.notes.find(params[:id])
     @note.destroy
 
     respond_to do |format|
       format.html { redirect_to notes_url }
       format.json { head :no_content }
+      format.js
     end
   end
 end

@@ -1,0 +1,27 @@
+<div id="full_story_<%= story.id %>" class="full_story">
+
+	<div class="header">
+		<h2 class="title"><%= story.name %></h2>
+		
+		<% if user_signed_in? && current_user == story.user %>
+			<%= link_to quick_story_url(story.user.username, story), quick_story_path(story.user.username, story), class: "story_url" %>
+		<% else %>
+			<%= link_to "By #{story.user.name}", quick_user_path(story.user.username), class: "story_url" %>
+		<% end %>
+		
+		<iframe allowtransparency="true" frameborder="0" scrolling="no" src="https://platform.twitter.com/widgets/tweet_button.html?url=<%= quick_story_url(story.user.username, story) %>&amp;text=<%= "Check Out \"#{story.name}\" on @66books - #{quick_story_url(story.user.username, story)}" %>" style="width:100px; height:21px;"></iframe>
+		
+		<iframe src="//www.facebook.com/plugins/like.php?href=<%= quick_story_url(story.user.username, story) %>&amp;send=false&amp;layout=button_count&amp;width=100&amp;show_faces=true&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21&amp;appId=353498681390857" scrolling="no" frameborder="0" style="width:100px; height:21px;" allowTransparency="true"></iframe>
+		
+	</div>
+
+	<div class="meta">
+		<%= link_to "Delete", story, :method => :delete, data: { confirm: "Are you sure you want to delete this story? It will be gone forever." }, :class => "", :style => "float: right;", remote: true %>
+		<%= link_to "Edit", edit_story_path(story), :class => "", :style => "float: right; margin-right: 10px; " %>
+	</div>
+
+	<div class="content">
+		Awesome. So <%= story.name %>.
+	</div>
+
+</div>

@@ -1,6 +1,4 @@
 class DiscoverController < ApplicationController
-  before_filter :find_stories
-  
   def index
     if user_signed_in?
       if current_user.follows.empty?

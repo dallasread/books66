@@ -1,6 +1,5 @@
 class StoriesController < ApplicationController
   before_filter :authenticate_user!, :except => [:show]
-  before_filter :find_stories
   
   # GET /stories
   # GET /stories.json
@@ -16,15 +15,19 @@ class StoriesController < ApplicationController
   # GET /stories/1
   # GET /stories/1.json
   def show
-    @story = Story.find(params[:id])
-    
-    if user_signed_in?
-      @favourite = Favourite.find_by_user_id_and_story_id(current_user, @story)
+    if params[:username]
+      @user = User.find_by_username(params[:username])
+      @story = @user.stories.find_by_permalink(params[:permalink])
+    else
+      @story = Story.find_by_permalink(params[:id])
     end
+    
+    cookies[:story] = @story.id
 
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @story }
+      format.js
     end
   end
 
@@ -41,7 +44,7 @@ class StoriesController < ApplicationController
 
   # GET /stories/1/edit
   def edit
-    @story = Story.find(params[:id])
+    @story = Story.find_by_permalink(params[:id])
   end
 
   # POST /stories
@@ -53,9 +56,11 @@ class StoriesController < ApplicationController
       if @story.save
         format.html { redirect_to @story, notice: 'Story was successfully created.' }
         format.json { render json: @story, status: :created, location: @story }
+        format.js
       else
         format.html { render action: "new" }
         format.json { render json: @story.errors, status: :unprocessable_entity }
+        format.js
       end
     end
   end
@@ -63,12 +68,19 @@ class StoriesController < ApplicationController
   # PUT /stories/1
   # PUT /stories/1.json
   def update
-    @story = Story.find(params[:id])
+    @story = Story.find_by_permalink(params[:id])
+    
+    if params[:ordinals]
+      params[:ordinals].each do |index, type, id|
+        
+      end
+    end
 
     respond_to do |format|
       if @story.update_attributes(params[:story])
         format.html { redirect_to @story, notice: 'Story was successfully updated.' }
         format.json { head :no_content }
+        format.js
       else
         format.html { render action: "edit" }
         format.json { render json: @story.errors, status: :unprocessable_entity }
@@ -79,12 +91,13 @@ class StoriesController < ApplicationController
   # DELETE /stories/1
   # DELETE /stories/1.json
   def destroy
-    @story = Story.find(params[:id])
+    @story = Story.find_by_permalink(params[:id])
     @story.destroy
 
     respond_to do |format|
       format.html { redirect_to stories_url }
       format.json { head :no_content }
+      format.js
     end
   end
 end

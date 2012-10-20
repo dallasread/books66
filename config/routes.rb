@@ -1,13 +1,31 @@
 Books66::Application.routes.draw do
   
+  #offline = Rack::Offline.configure do
+  #  cache "/assets/bg.jpg"
+  #end
+  
+  resources :items
+  resources :verses
+  resources :chapters
+  resources :books
+  resources :translations
   resources :favourites
 
   match "/news" => "news#index", :as => :news
 
-  devise_for :users, path_names: { sign_in: "login", sign_out: "logout" },
-                      controllers: {omniauth_callbacks: "omniauth_callbacks"}
+  devise_for :users, 
+    path_names: {
+      sign_in: "signin", 
+      sign_out: "signout"
+    },
+    controllers: {
+      omniauth_callbacks: "omniauth_callbacks"
+    }
 
-  resources :stories
+  resources :stories do
+    resources :notes
+  end
+  
   resources :users
   
   authenticated :user do
@@ -20,7 +38,13 @@ Books66::Application.routes.draw do
     root :to => 'news#index'
   end
   
-  match "/:id" => "stories#show", :as => :quick_story
+  match "/search" => "search#index", :as => :search
+  #match "/application.manifest" => offline
+  
+  match "/:username" => "users#show", :as => :quick_user
+  match "/:username/:permalink" => "stories#show", :as => :quick_story
+  match "/:version_id/:book_id/:chapter_id" => "chapters#show", :as => :quick_chapter
+  match "/:version_id/:book_id/:chapter_id/:verse_id" => "verses#show", :as => :quick_verse
   
   unauthenticated :user do
     root :to => 'discover#index'
