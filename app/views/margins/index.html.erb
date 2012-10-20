@@ -1,0 +1,27 @@
+<h1>Listing margins</h1>
+
+<table>
+  <tr>
+    <th>Ref</th>
+    <th>Body</th>
+    <th>User</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @margins.each do |margin| %>
+  <tr>
+    <td><%= margin.ref %></td>
+    <td><%= margin.body %></td>
+    <td><%= margin.user_id %></td>
+    <td><%= link_to 'Show', margin %></td>
+    <td><%= link_to 'Edit', edit_margin_path(margin) %></td>
+    <td><%= link_to 'Destroy', margin, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Margin', new_margin_path %>

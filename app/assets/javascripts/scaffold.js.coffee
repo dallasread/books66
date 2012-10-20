@@ -30,36 +30,18 @@ $ ->
 		$("#results_count").text("Loading Results")
 	
 	$(".margin_view").live "click", () ->
-		if $("#bible").attr("data-margin_view") == "true"
-			$("#bible .margin_wrapper").hide()
-			$("#bible .verse").css
-				"width": "auto"
-				"padding": "5px 6%"
-				"z-index": "99"
-			$("#bible").animate
-				"width": "37%"
-				"position": "fixed"
-				"left": "26%"
-				"top": "0"
-				"bottom": "0"
-				"right": ""
-			$("#bible").removeAttr("data-margin_view")
+		if $("#bible").hasClass "show_margins"
+			$("#bible").removeClass "show_margins", 300
 		else
-			$("#bible").css
-				"z-index": "999"
-			$("#bible").animate
-				"position": "fixed"
-				"width": "100%"
-				"top": "0"
-				"right": 0
-				"bottom": 0
-				"left": 0
-			$("#bible .margin_wrapper").fadeIn()
-			$("#bible").attr("data-margin_view", true)
-			$("#bible .verse").css
-				"width": "36%"
-				"padding": "5px 0px"
+			$("#bible").addClass "show_margins", 300
 		false
+	
+	$(".margin").live "blur", () ->
+		url = $(this).data("url")
+		body = $(this).html()
+		$.post url, 
+			"_method": "put"
+			"margin[body]": body
 	
 	#$(document).ready () ->
 	#	$("#search").submit()
@@ -82,6 +64,9 @@ $ ->
 		while i <= $(this).data("chapters_count")
 			$("#chapters").append("<a href='/kjv/#{permalink}/#{i}' data-remote='true' class='chapter_select'>#{i}</a>")
 			i += 1
+	
+	$(".margin_wrapper").live "click", () ->
+		$(this).find("[contenteditable]").focus()
 	
 	if !$(".signed_in").length
 		$("#nav a:last").click()
@@ -131,7 +116,7 @@ $.fn.resizer = ->
 	main_height = window_height - main_top - 5
 	
 	bible_top = 5 + $("#bible .header").height()
-	bible_height = window_height - bible_top - 40
+	bible_height = window_height - bible_top
 	
 	search_results_top = $("#search_results").offset().top
 	search_results_height = window_height - search_results_top - 5

@@ -5,7 +5,7 @@ class Item < ActiveRecord::Base
   
   def reify
     if variation == "note"
-      Note.find(item_id)
+      item = Note.find(item_id)
     elsif variation == "verse"
       ref_split = ref.split(" ")
       numbers = ref_split.last
@@ -16,7 +16,8 @@ class Item < ActiveRecord::Base
       book = Book.find_by_name(book_name)
       chapter = book.chapters.find_by_number(chapter_number)
       verse = chapter.verses.find_by_number(verse_number)
-      verse
+      item = verse
     end
+    item
   end
 end

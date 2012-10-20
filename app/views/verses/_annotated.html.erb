@@ -2,17 +2,13 @@
 <tr>
 
 	<td class="left_margin_wrapper margin_wrapper">
-		<div class="margin" data-position="left" contenteditable="true">
-			adsf
-		</div>
+		<%= render current_user.margins.find_or_create_by_ref_and_position(verse.reference, "left") %>
 	</td>
 
-	<td><%= render verse %></td>
+	<td id="<%= dom_id verse %>" class="verse_wrapper"><%= render verse %></td>
 	
 	<td class="right_margin_wrapper margin_wrapper">
-		<div class="margin" data-position="right" contenteditable="true">
-			adsf
-		</div>
+		<%= render current_user.margins.find_or_create_by_ref_and_position(verse.reference, "right") %>
 	</td>
 
 </tr>

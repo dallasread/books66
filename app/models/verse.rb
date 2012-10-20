@@ -4,6 +4,7 @@ class Verse < ActiveRecord::Base
   belongs_to :chapter
   has_one :book, :through => :chapter
   belongs_to :translation
+  has_many :notes
   
   default_scope order(:number)
   

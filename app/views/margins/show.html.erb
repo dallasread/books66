@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Ref:</b>
+  <%= @margin.ref %>
+</p>
+
+<p>
+  <b>Body:</b>
+  <%= @margin.body %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%= @margin.user_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_margin_path(@margin) %> |
+<%= link_to 'Back', margins_path %>

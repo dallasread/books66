@@ -1,5 +1,7 @@
 Books66::Application.routes.draw do
   
+  resources :margins
+
   #offline = Rack::Offline.configure do
   #  cache "/assets/bg.jpg"
   #end

@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   has_many :stories
   has_many :followships
   has_many :follows, :through => :followships
+  has_many :margins
   
   validates_uniqueness_of :username
 
