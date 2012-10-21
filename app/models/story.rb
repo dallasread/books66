@@ -1,5 +1,5 @@
 class Story < ActiveRecord::Base
-  attr_accessible :name, :user_id, :permalink
+  attr_accessible :name, :user_id, :permalink, :content
   
   belongs_to :user
   

@@ -119,13 +119,11 @@ $ ->
 		if confirm "Are you sure you want to delete this?"
 			$(this).parents(".item").remove()
 			$(".full_story .content").trigger("sortupdate")
+		false
 	
 	$(".actual_content").live "blur", () ->
-		url = $(this).parents(".note").data("url")
-		$.post url,
-			_method: "put"
-			"note[body]": $(this).html()
-	
+		$(".full_story .content").trigger("sortupdate")
+		
 	$.fn.setStory()
 	$.fn.resizer()
 	
@@ -138,29 +136,20 @@ $.fn.setStory = () ->
 
 	$(".full_story .content").live "sortupdate", (e, ui) ->
 		url = $(".full_story").data("url")
-		new_note_url = $(".full_story").data("new_note_url")
-		items = []
 		
-		if $(".full_story .item").length
-			$(".full_story .item").each () ->
-				type = $(this).data("type")
-				if type == "verse"
-					content = $(this).data("reference")
-				else
-					content = $(this).data("id")
-				
-				if $(this).index() + 1 == $(".full_story .item").length
-					if type == "verse" || ($(this).find(".actual_content").html() != "" && $(this).find(".actual_content").html() != "<br>")
-						$.getScript new_note_url
-				items.push [type, content]
-		else
-			$.getScript new_note_url
-		
-		$.fn.setItems()
+		$(".handle").remove()
 		
 		$.post url,
 			_method: "put"
-			items: items
+			"story[content]": $(".full_story .content").html()
+		
+		if $(".full_story .item:visible:last").hasClass("verse") || ($(".full_story .item:visible:last").hasClass("note") && $(".full_story .item:visible:last .actual_content").html() != "")
+			html = $("#note_sample").html()
+			$(html).appendTo $(".full_story .content")
+
+		$.fn.setItems()
+	
+	$(".full_story .content").trigger("sortupdate")
 
 $.fn.setItems = () ->
 	$(".actual_content").attr "contenteditable", true
