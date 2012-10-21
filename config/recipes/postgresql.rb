@@ -30,10 +30,6 @@ namespace :postgresql do
   desc "Symlink the database.yml file into latest release"
   task :symlink, roles: :app do
     run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
-    run "ln -nfs #{shared_path}/public/designs #{release_path}/public/designs"
-    run "ln -nfs #{shared_path}/public/media #{release_path}/public/media"
-    run "ln -nfs #{shared_path}/public/imgs #{release_path}/public/imgs"
-    run "ln -nfs #{shared_path}/public/lists #{release_path}/public/lists"
   end
   after "deploy:finalize_update", "postgresql:symlink"
   

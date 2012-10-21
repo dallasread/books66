@@ -1,13 +1,5 @@
 require "bundler/capistrano"
 
-# cap resque:status    # Check worksers status
-# cap resque:start     # Start Resque workers
-# cap resque:stop      # Quit running Resque workers
-# cap resque:restart   # Restart running Resque workers
-# cap resque:scheduler:restart # 
-# cap resque:scheduler:start   # Starts resque scheduler with default configs
-# cap resque:scheduler:stop    # Stops resque scheduler
-
 load "config/recipes/base"
 load "config/recipes/assets"
 load "config/recipes/tail"
