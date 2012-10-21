@@ -1,5 +1,7 @@
 Books66::Application.routes.draw do
   
+  resources :translations
+  
   #offline = Rack::Offline.configure do
   #  cache "/assets/bg.jpg"
   #end
@@ -29,7 +31,6 @@ Books66::Application.routes.draw do
     resources :verses
     resources :chapters
     resources :books
-    resources :translations
     resources :favourites
     
     match "/discover/stories" => "discover#index", :as => :discover_stories
