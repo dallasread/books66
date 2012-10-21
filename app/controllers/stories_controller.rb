@@ -70,19 +70,30 @@ class StoriesController < ApplicationController
   def update
     @story = Story.find_by_permalink(params[:id])
     
-    if params[:ordinals]
-      params[:ordinals].each do |index, type, id|
+    if params[:items]
+      @story.items.destroy_all
+      
+      i = 0
+      for item in params[:items]
+        type = item[1][0]
+        content = item[1][1]
         
+        @story.items.create(
+          ordinal: i,
+          variation: type,
+          ref: content
+        )
+        
+        i += 1
       end
     end
 
     respond_to do |format|
       if @story.update_attributes(params[:story])
-        format.html { redirect_to @story, notice: 'Story was successfully updated.' }
+        format.html { render nothing: true }
         format.json { head :no_content }
-        format.js
       else
-        format.html { render action: "edit" }
+        format.html { render nothing: true }
         format.json { render json: @story.errors, status: :unprocessable_entity }
       end
     end

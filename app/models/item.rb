@@ -3,9 +3,11 @@ class Item < ActiveRecord::Base
   
   belongs_to :story
   
+  default_scope order(:ordinal)
+  
   def reify
     if variation == "note"
-      item = Note.find(item_id)
+      item = Note.find(ref)
     elsif variation == "verse"
       ref_split = ref.split(" ")
       numbers = ref_split.last

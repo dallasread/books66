@@ -1,0 +1,44 @@
+working_directory "<%= current_path %>"
+pid "<%= unicorn_pid %>"
+stderr_path "<%= unicorn_log %>"
+stdout_path "<%= unicorn_log %>"
+
+listen "/tmp/unicorn.<%= application %>.sock"
+worker_processes <%= unicorn_workers %>
+timeout 30
+
+@resque_pid = nil
+@resque_pid2 = nil
+@resque_pid3 = nil
+@resque_pid4 = nil
+
+preload_app true
+
+before_fork do |server, worker|
+	@resque_pid ||= spawn("bundle exec rake RAILS_ENV=production resque:work QUEUE=*")
+	@resque_pid3 ||= spawn("bundle exec rake RAILS_ENV=production resque:work QUEUE=*")
+	@resque_pid4 ||= spawn("bundle exec rake RAILS_ENV=production resque:work QUEUE=*")
+	@resque_pid2 ||= spawn("bundle exec rake RAILS_ENV=production resque:scheduler")
+	
+  # Disconnect since the database connection will not carry over
+  if defined? ActiveRecord::Base
+    ActiveRecord::Base.connection.disconnect!
+  end
+
+  # Quit the old unicorn process
+  old_pid = "#{server.config[:pid]}.oldbin"
+  if File.exists?(old_pid) && server.pid != old_pid
+    begin
+      Process.kill("QUIT", File.read(old_pid).to_i)
+    rescue Errno::ENOENT, Errno::ESRCH
+      # someone else did our job for us
+    end
+  end
+end
+
+after_fork do |server, worker|
+  # Start up the database connection again in the worker
+  if defined?(ActiveRecord::Base)
+    ActiveRecord::Base.establish_connection
+  end
+end

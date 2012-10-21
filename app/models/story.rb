@@ -4,8 +4,8 @@ class Story < ActiveRecord::Base
   belongs_to :user
   
   has_many :favourites
-  
   has_many :items
+  has_many :notes
   
   validates_presence_of :name
   validates_uniqueness_of :permalink, scope: :user_id

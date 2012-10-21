@@ -43,6 +43,35 @@ h1 {
 		font-size: 15px;
 		color: #333;
 		line-height: 1.4em;
+		
+		.item {
+			margin-bottom: 15px;
+			text-align: justify;
+			
+			.delete {
+				cursor: pointer;
+			}
+		}
+		
+		.note {
+			color: #333;
+			font-size: 15px;
+		}
+		
+		.verse {
+			border-left: 7px solid #ccc;
+			padding-left: 10px;
+			font-size: 13px;
+			color: #555;
+			
+			.verse_reference {
+				font-weight: bold;
+				
+				.verse_book_short {
+					display: none;
+				}
+			}
+		}
 	}
 }
 

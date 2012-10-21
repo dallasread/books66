@@ -24,11 +24,22 @@ class NotesController < ApplicationController
   # GET /notes/new
   # GET /notes/new.json
   def new
-    @note = Note.new
+    @story = current_user.stories.find_by_permalink(params[:story_id])
+    @note = @story.notes.create(
+      body: "",
+      user_id: current_user.id
+    )
+    @story.items.create(
+      ordinal: 99999,
+      ref: @note.id,
+      story_id: @story.id,
+      variation: "note"
+    )
 
     respond_to do |format|
-      format.html # new.html.erb
+      format.html { render nothing: true }
       format.json { render json: @note }
+      format.js
     end
   end
 
@@ -59,11 +70,12 @@ class NotesController < ApplicationController
   # PUT /notes/1
   # PUT /notes/1.json
   def update
-    @note = Note.find(params[:id])
+    @story = current_user.stories.find_by_permalink(params[:story_id])
+    @note = @story.notes.find(params[:id])
 
     respond_to do |format|
       if @note.update_attributes(params[:note])
-        format.html { redirect_to @note, notice: 'Note was successfully updated.' }
+        format.html { render nothing: true }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

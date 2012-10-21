@@ -1,18 +1,9 @@
 Books66::Application.routes.draw do
   
-  resources :margins
-
   #offline = Rack::Offline.configure do
   #  cache "/assets/bg.jpg"
   #end
   
-  resources :items
-  resources :verses
-  resources :chapters
-  resources :books
-  resources :translations
-  resources :favourites
-
   match "/news" => "news#index", :as => :news
 
   devise_for :users, 
@@ -24,15 +15,22 @@ Books66::Application.routes.draw do
       omniauth_callbacks: "omniauth_callbacks"
     }
 
-  resources :stories do
-    resources :notes
-  end
+  resources :stories
   
   resources :users
   
   authenticated :user do
-    resources :notes
     resources :followships
+    resources :stories do
+      resources :notes
+    end
+    resources :margins
+    resources :items
+    resources :verses
+    resources :chapters
+    resources :books
+    resources :translations
+    resources :favourites
     
     match "/discover/stories" => "discover#index", :as => :discover_stories
     match "/discover/people" => "users#index", :as => :discover_people

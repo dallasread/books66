@@ -1,4 +1,4 @@
-<div class="verse <%= dom_id verse %>" data-reference="<%= verse.reference %>" data-verse_url="<%= quick_verse_path("kjv", verse.book, verse.chapter.number, verse.number) %>">
+<div class="verse item" data-type="verse" data-reference="<%= verse.reference %>" data-url="<%= quick_verse_path("kjv", verse.book, verse.chapter.number, verse.number) %>">
 	<div class="verse_reference">
 		<span class="verse_book_short"><%= verse.book.short_name %></span>
 		<span class="verse_book_full"><%= verse.book.name %></span> 

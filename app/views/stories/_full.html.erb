@@ -1,10 +1,15 @@
-<div id="full_story_<%= story.id %>" class="full_story">
+<div id="full_story_<%= story.id %>" class="full_story" data-url="<%= story_path(story) %>" data-new_note_url="<%= new_story_note_path(story.permalink) %>">
 
 	<div class="header">
 		<h2 class="title"><%= story.name %></h2>
 		
 		<% if user_signed_in? && current_user == story.user %>
 			<%= link_to quick_story_url(story.user.username, story), quick_story_path(story.user.username, story), class: "story_url" %>
+			
+			<div class="meta">
+				<%= link_to "Delete This Story", story, :method => :delete, data: { confirm: "Are you sure you want to delete this story? It will be gone forever." }, :class => "", :style => "float: right;", remote: true %>
+				<!--<%= link_to "Edit", edit_story_path(story), :class => "", :style => "float: right; margin-right: 10px; " %>-->
+			</div>
 		<% else %>
 			<%= link_to "By #{story.user.name}", quick_user_path(story.user.username), class: "story_url" %>
 		<% end %>
@@ -15,13 +20,8 @@
 		
 	</div>
 
-	<div class="meta">
-		<%= link_to "Delete", story, :method => :delete, data: { confirm: "Are you sure you want to delete this story? It will be gone forever." }, :class => "", :style => "float: right;", remote: true %>
-		<%= link_to "Edit", edit_story_path(story), :class => "", :style => "float: right; margin-right: 10px; " %>
-	</div>
-
 	<div class="content">
-		Awesome. So <%= story.name %>.
+		<%= render story.items %>
 	</div>
 
 </div>
