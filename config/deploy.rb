@@ -7,7 +7,7 @@ load "config/recipes/seed"
 load "config/recipes/check"
 load "config/recipes/monit"
 load "config/recipes/sys"
-load "config/recipes/mailman"
+#load "config/recipes/mailman"
 
 load "config/recipes/nginx"
 load "config/recipes/unicorn"
@@ -15,8 +15,8 @@ load "config/recipes/postgresql"
 load "config/recipes/nodejs"
 load "config/recipes/rbenv"
 load "config/recipes/bundler"
-load "config/recipes/redis"
-load "config/recipes/imagemagick"
+#load "config/recipes/redis"
+#load "config/recipes/imagemagick"
 
 server "208.68.37.206", :web, :app, :db, primary: true
 
