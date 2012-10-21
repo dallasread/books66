@@ -47,5 +47,4 @@ ssh_options[:forward_agent] = true
 
 after "deploy", "deploy:migrate"
 after "deploy", "deploy:cleanup"
-
 after "deploy:install", "deploy:autoremove"

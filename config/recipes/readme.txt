@@ -15,7 +15,7 @@ For setup on new machine:
 			sudo ssh git@github.com
 
 		LOCAL
-			cat ~/.ssh/id_rsa.pub | ssh deployer@69.55.54.246 'cat >> ~/.ssh/authorized_keys'
+			cat ~/.ssh/id_rsa.pub | ssh deployer@208.68.37.206 'cat >> ~/.ssh/authorized_keys'
 			ssh-add -K
 	
 	SEED DB
