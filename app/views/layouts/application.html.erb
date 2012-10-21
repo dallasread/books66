@@ -140,6 +140,10 @@
 		<%= render @ref %>
 	</div>
 	
+	<% if user_signed_in? %>
+		<%= hidden_field_tag :user_signed_in %>
+	<% end %>
+	
 	<div id="story_wrapper">
 			<% if cookies[:story] %>
 				<%= render(partial: Story.find(cookies[:story]), :locals => { :story => :full }, layout: "stories/full") %>

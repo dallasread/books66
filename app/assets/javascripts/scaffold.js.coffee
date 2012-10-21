@@ -124,10 +124,10 @@ $ ->
 	$(".actual_content").live "blur", () ->
 		$(".full_story .content").trigger("sortupdate")
 		
-	$.fn.setStory()
+	if $("#user_signed_in").length
+		$.fn.setStory()
+
 	$.fn.resizer()
-	
-	$(".full_story .content").trigger("sortupdate")
 
 $.fn.setStory = () ->
 	$(".full_story .content").sortable
