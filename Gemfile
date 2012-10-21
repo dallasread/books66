@@ -30,7 +30,10 @@ end
 
 gem 'jquery-rails'
 
-gem 'thin'
+group :development do
+  gem 'thin'
+end
+
 gem 'nokogiri'
 
 # To use ActiveModel has_secure_password
@@ -40,7 +43,9 @@ gem 'nokogiri'
 # gem 'jbuilder'
 
 # Use unicorn as the app server
-gem 'unicorn'
+group :production do
+  gem 'unicorn'
+end
 
 # Deploy with Capistrano
 gem 'capistrano'
