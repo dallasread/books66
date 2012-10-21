@@ -15,10 +15,6 @@ timeout 30
 preload_app true
 
 before_fork do |server, worker|
-	@resque_pid ||= spawn("bundle exec rake RAILS_ENV=production resque:work QUEUE=*")
-	@resque_pid3 ||= spawn("bundle exec rake RAILS_ENV=production resque:work QUEUE=*")
-	@resque_pid4 ||= spawn("bundle exec rake RAILS_ENV=production resque:work QUEUE=*")
-	@resque_pid2 ||= spawn("bundle exec rake RAILS_ENV=production resque:scheduler")
 	
   # Disconnect since the database connection will not carry over
   if defined? ActiveRecord::Base

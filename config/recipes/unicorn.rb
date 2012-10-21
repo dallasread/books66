@@ -28,11 +28,8 @@ namespace :unicorn do
   
   desc "Restart unicorn"
   task :restart, :roles => [:app] do
-    mailman.stop
     unicorn.stop
-    resque.kill_all
     unicorn.start
-    mailman.start
   end
   
   after "deploy", "unicorn:restart"
