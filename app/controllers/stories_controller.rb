@@ -70,24 +70,10 @@ class StoriesController < ApplicationController
   def update
     @story = Story.find_by_permalink(params[:id])
     
-    if params[:items]
-      @story.items.destroy_all
-      
-      i = 0
-      for item in params[:items]
-        type = item[1][0]
-        content = item[1][1]
-        
-        @story.items.create(
-          ordinal: i,
-          variation: type,
-          ref: content
-        )
-        
-        i += 1
-      end
+    if params[:story][:content]
+      params[:story][:content] = params[:story][:content].strip
     end
-
+    
     respond_to do |format|
       if @story.update_attributes(params[:story])
         format.html { render nothing: true }
