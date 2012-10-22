@@ -10,6 +10,9 @@
 	<meta name="apple-mobile-web-app-status-bar-style" content="black">
 	<meta name="viewport" content="initial-scale=0.85, width=device-width, minimum-scale=0.85, user-scalable=no" />
 	
+	<link rel="apple-touch-icon" href="<%= image_path("appletouchicon.png") %>" />
+	<!--<link rel="apple-touch-startup-image" href="" />-->
+	
   <%= csrf_meta_tags %>
 </head>
 <body>
@@ -19,7 +22,7 @@
 	<div id="main">
 		
 		<div class="header">
-			<h1>66Books</h1>
+			<h1><%= image_tag("logo.png") %></h1>
 		</div>
 		
 		<div id="nav_wrapper">

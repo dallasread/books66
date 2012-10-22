@@ -138,7 +138,7 @@ $.fn.setStory = () ->
 		url = $(".full_story").data("url")
 		
 		$(".handle").remove()
-		$("[contenteditable]").removeAttr "contenteditable"
+		$("[contenteditable]:not(.margin)").removeAttr "contenteditable"
 		
 		$.post url,
 			_method: "put"
