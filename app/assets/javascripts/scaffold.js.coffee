@@ -38,6 +38,8 @@ $ ->
 	
 	$(".verse_number").live "click", () ->
 		verse = $(this).parents(".verse").clone()
+		if $(".full_story .item:visible:last .actual_content").html() == ""
+			$(".full_story .item:visible:last").remove()
 		$(".full_story .content").append verse
 		$(".full_story .content").trigger("sortupdate")
 	
