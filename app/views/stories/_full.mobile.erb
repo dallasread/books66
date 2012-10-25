@@ -1,3 +1,4 @@
+<% cache ["mobile", "full", story] do %>
 <p class="byline"><%= "By #{story.user.name}" %></p>
 
 <div id="share_links">
@@ -11,3 +12,4 @@
 <div class="content">
 	<%= story.content.html_safe %>
 </div>
+<% end %>

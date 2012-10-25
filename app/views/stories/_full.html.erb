@@ -24,6 +24,7 @@
 		<%= story.content.to_s.html_safe %>
 	</div>
 	
+	
 	<div id="note_sample" style="display: none">
 	<%= render Note.new(body: "") if user_signed_in? && current_user == story.user %>
 	</div>
