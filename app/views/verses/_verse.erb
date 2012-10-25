@@ -1,8 +1,10 @@
-<div class="verse item" data-type="verse" data-reference="<%= verse.reference %>" data-url="<%= quick_verse_path("kjv", verse.book, verse.chapter.number, verse.number) %>">
-	<div class="verse_reference">
-		<span class="verse_book_short"><%= verse.book.short_name %></span>
-		<span class="verse_book_full"><%= verse.book.name %></span> 
-		<span class="verse_chapter_number"><%= verse.chapter.number %>:</span><span class="verse_number"><%= verse.number %></span>
+<% cache verse do %>
+	<div class="verse item" data-type="verse" data-reference="<%= verse.reference %>" data-url="<%= quick_verse_path("kjv", verse.book, verse.chapter.number, verse.number) %>">
+		<div class="verse_reference">
+			<span class="verse_book_short"><%= verse.book.short_name %></span>
+			<span class="verse_book_full"><%= verse.book.name %></span> 
+			<span class="verse_chapter_number"><%= verse.chapter.number %>:</span><span class="verse_number"><%= verse.number %></span>
+		</div>
+		<div class="verse_body"><%= verse.body %></div>
 	</div>
-	<div class="verse_body"><%= verse.body %></div>
-</div>
+<% end %>
