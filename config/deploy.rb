@@ -8,6 +8,7 @@ load "config/recipes/check"
 load "config/recipes/monit"
 load "config/recipes/sys"
 #load "config/recipes/mailman"
+load "config/recipes/memcached"
 
 load "config/recipes/nginx"
 load "config/recipes/unicorn"

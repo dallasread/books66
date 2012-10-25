@@ -45,6 +45,7 @@ gem 'nokogiri'
 # Use unicorn as the app server
 group :production do
   gem 'unicorn'
+  gem 'dalli'
 end
 
 # Deploy with Capistrano
