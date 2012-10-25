@@ -14,6 +14,7 @@ gem 'paperclip'
 gem 'paper_trail'
 gem 'will_paginate'
 #gem 'rack-offline'
+gem 'cache_digests'
 gem 'has_permalink'
 
 # Gems used only for assets and not required

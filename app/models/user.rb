@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
   has_many :margins
   
   validates_uniqueness_of :username
+  validates_presence_of :username
 
   has_many :inverse_followships, :class_name => "Followship", :foreign_key => "follow_id"
   has_many :inverse_follows, :through => :inverse_followships, :source => :user

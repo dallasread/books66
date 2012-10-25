@@ -1,0 +1,7 @@
+<% verse = public_annotated %>
+
+<% cache ["public-annotated", verse] do %>
+	<tr>
+		<td class="<%= dom_id verse %> verse_wrapper"><%= render verse %></td>
+	</tr>
+<% end %>

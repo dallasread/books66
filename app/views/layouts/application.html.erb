@@ -28,20 +28,20 @@
 		<div id="nav_wrapper">
 			<table id="nav" class="<%= "signed_in" if user_signed_in? %>">
 				<tr>
-					<td><%= link_to ("<i class=\"icon-search\"></i>").html_safe, "#search_wrapper", class: "selected", title: "Search" %></td>
+					<td><%= link_to ("<i class=\"icon-search\"></i><br /><span class='label'>Search</span>").html_safe, "#search_wrapper", class: "selected", title: "Search" %></td>
 					
 					<% if user_signed_in? %>
 					
-						<td><%= link_to ("<i class=\"icon-book\"></i>").html_safe, "#stories", title: "My Stories" %></td>
+						<td><%= link_to ("<i class=\"icon-book\"></i><br /><span class='label'>My Stories</span>").html_safe, "#stories", title: "My Stories" %></td>
 						<!--
 						<td><%= link_to ("<i class=\"icon-rss\"></i>").html_safe, "#latest", title: "News Feed" %></td>
 												<td><%= link_to ("<i class=\"icon-user-md\"></i>").html_safe, "#friends", title: "Friends" %></td>-->
 						
-						<td><%= link_to ("<i class=\"icon-lock\"></i>").html_safe, destroy_user_session_path, method: :delete, title: "Sign Out" %></td>
+						<td><%= link_to ("<i class=\"icon-lock\"></i><br /><span class='label'>Sign Out</span>").html_safe, destroy_user_session_path, method: :delete, title: "Sign Out" %></td>
 					
 					<% else %>
 					
-						<td><%= link_to ("<i class=\"icon-lock\"></i>").html_safe, "#signin", title: "Sign In" %></td>
+						<td><%= link_to ("<i class=\"icon-lock\"></i><br /><span class='label'>Sign In</span>").html_safe, "#signin", title: "Sign In" %></td>
 						
 					<% end %>
 
@@ -89,13 +89,20 @@
 			<% else %>
 				
 				<div id="signin" class="main_frame">
-					<h2 class="title">
-						You don't need a special account to use 66Books. Just use one of the ones you already have!<br /><br />
-						<span style="font-size: .8em; ">We won't post to your wall or any of that nonsense.</span>
-					</h2>
-					<br /><br />
+					<br />
+					
+					<!--
+					<%= link_to "Sign Up", "#", class: "btn show_create_account", style: "font-size: .7em; " %> &nbsp; 
+										<%= link_to "Sign In", "#", class: "btn show_sign_in", style: "font-size: .7em; " %><br /><br />
+										
+										<%= render "devise/registrations/new" %>
+										
+										<%= render "devise/sessions/new" %>-->
+					
+					
 					<%= link_to image_tag("facebook.png"), omniauth_authorize_path("user", "facebook") %><br /><br />
 					<%= link_to image_tag("twitter.png"), omniauth_authorize_path("user", "twitter") %>
+					
 				</div>
 			
 			<% end %>
@@ -165,7 +172,7 @@
 						
 						<h3><i class="icon-book"></i> &nbsp;Social Bible Study.</h3>
 						<p>
-							Ever wanted to see the margins in John Wesley's Bible or read Martin Luther's notes? Do you ever wonder what your friends or pastor is reading? With 66Books, you'll know what your friends (and "celebrities") are reading, note-taking, and stories.<br /><br />
+							Ever wanted to see the margins in John Wesley's Bible or read Martin Luther's notes? Do you ever wonder what your friends or pastor is reading? With 66Books, you'll know what your friends are reading, studying, and writing.<br /><br />
 						</p>
 					
 						<h3><i class="icon-road"></i> &nbsp;Simple, Fast, &amp; Powerful.</h3>
@@ -175,7 +182,8 @@
 					
 						<h3><i class="icon-twitter"></i> &nbsp;Share Your Story.</h3>
 						<p>
-							Publish your story to your friends, congregation, or social media via a short, unique url (<%= link_to "http://66books.co/12345", "http://66books.co/12345" %>) so they can follow along.<br /><br />
+							<% last_story = Story.last %>
+							Publish your story to your friends, congregation, or social media via a short, unique url (<%= link_to last_story.name, quick_story_path(last_story.user.username, last_story) %>) so they can follow along.<br /><br />
 						</p>
 					
 					</div>

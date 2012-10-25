@@ -1,5 +1,5 @@
 class Verse < ActiveRecord::Base
-  attr_accessible :body, :chapter_id, :number, :translation_id
+  attr_accessible :body, :chapter_id, :number, :translation_id, :ref
   
   belongs_to :chapter
   has_one :book, :through => :chapter

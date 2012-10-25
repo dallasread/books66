@@ -15,16 +15,6 @@ $ ->
 		$("#q").val title
 		$("#search").submit()
 		false
-
-	$("a[title]").qtip
-		position:
-			my: "top center"
-			at: "bottom center"
-			viewport: $(window)
-		style:
-			classes: 'ui-tooltip-youtube'
-		show:
-			delay: 0
 	
 	$("form").live "submit", () ->
 		$("#results_count").text("Loading Results")
@@ -37,11 +27,12 @@ $ ->
 		false
 	
 	$(".verse_number").live "click", () ->
-		verse = $(this).parents(".verse").clone()
-		if $(".full_story .item:visible:last .actual_content").html() == ""
-			$(".full_story .item:visible:last").remove()
-		$(".full_story .content").append verse
-		$(".full_story .content").trigger("sortupdate")
+		if $(".margin_view").length
+			verse = $(this).parents(".verse").clone()
+			if $(".full_story .item:visible:last .actual_content").html() == ""
+				$(".full_story .item:visible:last").remove()
+			$(".full_story .content").append verse
+			$(".full_story .content").trigger("sortupdate")
 	
 	$(".margin").live "blur", () ->
 		url = $(this).data("url")
@@ -58,8 +49,21 @@ $ ->
 		$(this).addClass("selected")
 		$(".chapter_reference").click()
 	
-	$(".chapter_reference").live "click", () ->
+	$(".chapter_reference a").live "click", () ->
 		$("#reference_selector").toggle()
+		false
+	
+	$(".show_create_account").live "click", () ->
+		$("#new_user").toggle()
+		$("#sign_in_form").hide()
+		$("#new_user input:visible:first").focus()
+		false
+	
+	$(".show_sign_in").live "click", () ->
+		$("#sign_in_form").toggle()
+		$("#new_user").hide()
+		$("#sign_in_form input:visible:first").focus()
+		false
 		
 	$(".book_select").live "click", () ->
 		permalink = $(this).data("permalink")

@@ -117,6 +117,10 @@ body {
 					text-decoration: none;
 					text-shadow: 1px 1px 1px #ccc;
 					
+					.label {
+						font-size: 10px;
+					}
+					
 					&:hover {
 						background: #ccc;
 						box-shadow: inset 2px 2px 7px #aaa;
@@ -155,7 +159,16 @@ body {
 	border-radius: 0px 0px 5px 5px;
 }
 
-input[type="text"] {
+.errors {
+	margin: 20px 0;
+	
+	ul {
+		list-style: disc;
+		margin: 0 0 0 30px;
+	}
+}
+
+input[type="text"], input[type="email"], input[type="password"] {
 	border: 5px solid #ccc;
 	border-radius: 25px;
 	padding: 4px 10px;
@@ -169,7 +182,18 @@ input[type="text"] {
 	box-sizing: border-box;
 }
 
-input[type="submit"] {
+.field {
+	margin-bottom: 10px;
+	font-size: .8em;
+}
+
+#new_user, #sign_in_form {
+	display: none;
+	margin-bottom: 40px;
+}
+
+input[type="submit"], .btn {
+	text-decoration: none;
 	background: #9d2a2a; /* Old browsers */
 	background: -moz-linear-gradient(top,  #9d2a2a 0%, #5b0909 50%); /* FF3.6+ */
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#9d2a2a), color-stop(50%,#5b0909)); /* Chrome,Safari4+ */

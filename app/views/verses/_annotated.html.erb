@@ -1,17 +1,15 @@
 <% verse = annotated %>
 
-<tr>
-	<% if user_signed_in? %>
+<% cache [current_user, verse] do %>
+	<tr>
 		<td class="left_margin_wrapper margin_wrapper">
 			<%= render current_user.margins.find_or_create_by_ref_and_position(verse.reference, "left") %>
 		</td>
-	<% end %>
 
-	<td class="<%= dom_id verse %> verse_wrapper"><%= render verse %></td>
+		<td class="<%= dom_id verse %> verse_wrapper"><%= render verse %></td>
 
-	<% if user_signed_in? %>
 		<td class="right_margin_wrapper margin_wrapper">
 			<%= render current_user.margins.find_or_create_by_ref_and_position(verse.reference, "right") %>
 		</td>
-	<% end %>
-</tr>
+	</tr>
+<% end %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121021222847) do
+ActiveRecord::Schema.define(:version => 20121025205411) do
 
   create_table "books", :force => true do |t|
     t.string   "name"
@@ -122,7 +122,10 @@ ActiveRecord::Schema.define(:version => 20121021222847) do
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
     t.integer  "translation_id"
+    t.string   "ref"
   end
+
+  add_index "verses", ["ref"], :name => "index_verses_on_ref"
 
   create_table "versions", :force => true do |t|
     t.string   "item_type",  :null => false
