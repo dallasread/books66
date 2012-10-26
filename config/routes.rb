@@ -36,7 +36,7 @@ Books66::Application.routes.draw do
     match "/discover/stories" => "discover#index", :as => :discover_stories
     match "/discover/people" => "users#index", :as => :discover_people
     match "/following" => "followships#index", :as => :following
-    root :to => 'news#index'
+    root :to => 'discover#index'
   end
   
   match "/search" => "search#index", :as => :search
