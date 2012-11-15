@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121025205411) do
+ActiveRecord::Schema.define(:version => 20121114220927) do
 
   create_table "books", :force => true do |t|
     t.string   "name"
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(:version => 20121025205411) do
     t.string   "abbr"
     t.integer  "chapters_count", :default => 0
     t.integer  "ordinal"
+    t.string   "osis"
   end
 
   create_table "chapters", :force => true do |t|

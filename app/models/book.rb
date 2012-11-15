@@ -1,5 +1,5 @@
 class Book < ActiveRecord::Base
-  attr_accessible :name, :permalink, :ordinal, :chapters_count
+  attr_accessible :name, :permalink, :ordinal, :chapters_count, :osis
   
   has_many :chapters
   

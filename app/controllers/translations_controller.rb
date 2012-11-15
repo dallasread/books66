@@ -9,49 +9,49 @@ class TranslationsController < ApplicationController
       ActiveRecord::Base.connection.reset_pk_sequence!('books')
       ActiveRecord::Base.connection.reset_pk_sequence!('chapters')
       ActiveRecord::Base.connection.reset_pk_sequence!('verses')
-    else
-      require "open-uri"
-      items = JSON(open("http://mybible.herokuapp.com/assets/kjv_bible#{params[:id]}.json") { |f| f.read })
-      @output = items
-      b = 1
-    
-      for item in items
-        if item["model"] == "bible.book"
-          a = Book.new(
-            :name => item["fields"]["name"],
-            :permalink => item["fields"]["slug"].parameterize,
-            :ordinal => b
-          )
-          a.id = item["pk"]
-          a.save!
-        elsif item["model"] == "bible.chapter"
-          a = Chapter.new(
-            :book_id => item["fields"]["book"],
-            :number => item["fields"]["number"]
-          )
-
-          a.id = item["pk"]
-          a.save!
-        elsif item["model"] == "bible.verse"
-          a = Verse.new(
-            :chapter_id => item["fields"]["chapter"],
-            :body => item["fields"]["text"],
-            :number => item["fields"]["number"]
-          )
-
-          a.id = item["pk"]
-          a.save!
-        end
+      @output = "Books, Chapters, and Verses have been reset."
+    elsif params[:set] == "kjv"
+      @translation = Translation.find_or_create_by_name_and_permalink("King James Version", "kjv")
       
-        b += 1
+      io = File.open(File.expand_path('../../../public/raw_bibles/kjvgenesis.xml', __FILE__))
+      doc = Nokogiri::HTML(io)
+      @output = ""
+      
+      doc.css(".book").each do |b|
+        @output += b.content
       end
-    end
-    
-    if params[:id] == 4
-      for book in Book.all
-        book.chapters_count = book.chapters.count
-        book.save
-      end
+      
+      # doc.css("div[type='book']").each_with_index do |b, i|
+      #   book = Book.create(ordinal: i, name: b["osisID"], osis: b["osisID"])
+      #   @output += "Added #{b["osisID"]}<br />"
+      #   
+      #   b.css("chapter").each do |c|
+      #     osis = c["osisID"].split(".")
+      #     book_osis = osis.first
+      #     chapter_number = osis.last
+      #     chapter = book.chapters.create(number: chapter_number)
+      #     @output += "Added #{c["osisID"]}<br />"
+      #     
+      #     doc.css("verse").each do |v|
+      #       if v["osisID"]
+      #         osis = v["osisID"].split(".")
+      #         verse_number = osis.last
+      #         verse_body = v.content
+      #         
+      #         verse = @translation.verses.create(
+      #           body: verse_body,
+      #           chapter_id: chapter.id,
+      #           number: verse_number,
+      #           ref: v["osisID"]
+      #         )
+      #   
+      #         @output += "Added #{v["osisID"]}<br />"
+      #       end
+      #     end
+      #   end
+      #   
+      #   book.update_attributes(chapters_count: book.chapters.count)
+      # end
     end
 
     respond_to do |format|

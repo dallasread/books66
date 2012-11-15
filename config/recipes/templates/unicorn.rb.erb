@@ -7,11 +7,6 @@ listen "/tmp/unicorn.<%= application %>.sock"
 worker_processes <%= unicorn_workers %>
 timeout 30
 
-@resque_pid = nil
-@resque_pid2 = nil
-@resque_pid3 = nil
-@resque_pid4 = nil
-
 preload_app true
 
 before_fork do |server, worker|

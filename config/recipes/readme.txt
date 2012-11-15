@@ -19,4 +19,48 @@ For setup on new machine:
 			ssh-add -K
 	
 	SEED DB
-		cap deploy:seed
+		REPLACE type="book" FOR class="book"
+		REGEX <verse o(.*?)/> FOR <div class="verse" o$1>
+		REGEX <verse e(.*?)/> FOR </div>
+		REPLACE <w  FOR <div class="word" 
+		REPLACE </w> FOR </div>
+		REPLACE  lemma=" FOR  data-lemma="
+		REPLACE  morph=" FOR  data-morph="
+		REPLACE <transChange FOR <div class="transChange"
+		REPLACE </transChange> FOR </div>
+		REPLACE  src=" FOR  data-src="
+		REGEX <milestone(.*?)/> FOR <div class="milestone"$1></div>
+		REPLACE  resp=" FOR  data-resp="
+		REPLACE  type=" FOR  data-type="
+		
+# EXPLANATIONS
+w element has the following attributes in addition to those that it shares with other elements:
+	• gloss Record comments on a particular word or its usage.
+	• lemma Use to record the base form of a word.
+	• morph Use to record grammatical information for a word.
+	• POS Use to record the function of a word according to a particular view of the language's syntax.
+	• src Use to record origin of the word.
+	• xlit Use to record a transliteration of a word.
+
+# OTHER
+	• a
+	• abbr
+	• date
+	• divineName
+	• foreign
+	• hi
+	• index
+	• inscription
+	• lb
+	• list
+	• mentioned
+	• milestone
+	• name
+	• note
+	• q
+	• reference
+	• seg
+	• speaker
+	• title
+	• transChange
+	• w
