@@ -26,6 +26,8 @@ For setup on new machine:
 		REPLACE </w> FOR </div>
 		REPLACE  lemma=" FOR  data-lemma="
 		REPLACE  morph=" FOR  data-morph="
+		REPLACE  osisID=" FOR  data-osisID="
+		REPLACE  sID=" FOR  data-sID="
 		REPLACE <transChange FOR <div class="transChange"
 		REPLACE </transChange> FOR </div>
 		REPLACE  src=" FOR  data-src="
