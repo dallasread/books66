@@ -13,11 +13,14 @@ class LexiconsController < ApplicationController
   # GET /lexicons/1
   # GET /lexicons/1.json
   def show
-    @lexicon = Lexicon.find(params[:id])
+    language = params[:id][0].capitalize
+    number = params[:id][1..-1].to_i
+    @lexicon = Lexicon.find_by_code("#{language}#{number}")
 
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @lexicon }
+      format.js
     end
   end
 

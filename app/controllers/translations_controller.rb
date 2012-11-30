@@ -25,7 +25,7 @@ class TranslationsController < ApplicationController
       require "csv"
       @output = ""
       
-      %w[hebrew].each do |lang|
+      %w[greek hebrew].each do |lang|
         
         dictionary = "strong"
       
@@ -60,9 +60,9 @@ class TranslationsController < ApplicationController
       doc.css("div[data-type=book]").each_with_index do |b, i|
         book = Book.create(
           ordinal: i, 
-          osis: b["data-osisid"], 
+          osis: b["data-osisid"].downcase, 
           name: b["data-osisid"], 
-          permalink: b["data-osisid"]
+          permalink: b["data-osisid"].downcase
         )
         
         @output += "Added #{b["data-osisid"]}<br />"
@@ -72,7 +72,7 @@ class TranslationsController < ApplicationController
           book_osis = osis.first
           chapter_number = osis.last
           chapter = book.chapters.create(number: chapter_number)
-          @output += "Added #{c["data-osisid"]}<br />"
+          @output += "Added #{c["data-osisid"].downcase}<br />"
           
           c.css(".verse").each do |v|
             if v["data-osisid"]
@@ -84,10 +84,10 @@ class TranslationsController < ApplicationController
                 body: verse_body,
                 chapter_id: chapter.id,
                 number: verse_number,
-                ref: v["data-osisid"]
+                ref: v["data-osisid"].downcase
               )
         
-              @output += "Added #{v["data-osisid"]}<br />"
+              @output += "Added #{v["data-osisid"].downcase}<br />"
             end
           end
         end

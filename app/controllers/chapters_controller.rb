@@ -13,7 +13,7 @@ class ChaptersController < ApplicationController
   # GET /chapters/1
   # GET /chapters/1.json
   def show
-    @book = Book.find_by_permalink(params[:book_id])
+    @book = Book.find_by_permalink(params[:book_id].downcase)
     @chapter = @book.chapters.find_by_number(params[:chapter_id])
     @verses = @chapter.verses
     cookies[:ref] = @chapter.id

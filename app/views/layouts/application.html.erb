@@ -125,9 +125,9 @@
 	
 	<div id="bible">
 		<% if cookies[:ref] %>
-			<% @ref = Chapter.find(cookies[:ref]) %>
+			<% @ref = Chapter.find(cookies[:ref].downcase) %>
 		<% else %>
-			<% @ref = Book.find_by_name("Gen").chapters.first %>
+			<% @ref = Book.find_by_name("gen").chapters.first %>
 		<% end %>
 		
 		<% if user_signed_in? %>
