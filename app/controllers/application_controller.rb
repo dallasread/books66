@@ -18,5 +18,11 @@ private
     session[:mobile_param] = params[:mobile] if params[:mobile]
     request.format = :mobile if mobile_device?
   end
+  
+  def authenticate_admin!
+    if !current_user
+      redirect_to root_url
+    end
+  end
 
 end

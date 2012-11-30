@@ -103,16 +103,17 @@ $ ->
 			$("#stories_list .story.selected").removeClass("selected")
 			$(this).addClass("selected")
 			$.getScript url
-
-	#$(".verse").live "click", (e) ->
-	#	$(".tip").remove()
-	#	if $(this).hasClass("selected")
-	#		$(this).removeClass "selected"
-	#	else
-	#		$(".word.selected").removeClass "selected"
-	#		$(this).addClass "selected"
-	#		$("<div class='tip'><span class='font_awesome do_search'><i class=\"icon-search\"></i></span><span class='title'>Phaino</span><span class='pronunciation'>pronounced fah'-ee-no</span><span class='definition'>prolongation for the base of 5457; to lighten (shine), i.e. show (transitive or intransitive, literal or figurative):-- appear, seem, be seen, shine, X think.</span></div>").prependTo $(this)
-	#		$(this).find(".tip").css "top", $(this).offset().top + $(this).height() + 10
+	
+	$(".chapter .w").live "click", (e) ->
+		$(".tip").remove()
+		if $(this).hasClass("selected")
+			$(this).removeClass "selected"
+		else
+			title = $(this).text()
+			$(".w.selected").removeClass "selected"
+			$(this).addClass "selected"
+			$("<div class='tip'><span class='font_awesome do_search'><i class=\"icon-search\"></i></span><span class='title'>#{title}</span><span class='pronunciation'>pronounced fah'-ee-no</span><span class='definition'>prolongation for the base of 5457; to lighten (shine), i.e. show (transitive or intransitive, literal or figurative):-- appear, seem, be seen, shine, X think.</span></div>").prependTo $(this)
+			$(this).find(".tip").css "top", $(this).offset().top + $(this).height() + 40
 
 	$(".full_story .verse").live "click", () ->
 		url = $(this).data("url")

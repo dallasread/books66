@@ -1,0 +1,57 @@
+<%= form_for(@lexicon) do |f| %>
+  <% if @lexicon.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@lexicon.errors.count, "error") %> prohibited this lexicon from being saved:</h2>
+
+      <ul>
+      <% @lexicon.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :code %><br />
+    <%= f.text_field :code %>
+  </div>
+  <div class="field">
+    <%= f.label :orig_word %><br />
+    <%= f.text_field :orig_word %>
+  </div>
+  <div class="field">
+    <%= f.label :word_orig %><br />
+    <%= f.text_field :word_orig %>
+  </div>
+  <div class="field">
+    <%= f.label :translit %><br />
+    <%= f.text_field :translit %>
+  </div>
+  <div class="field">
+    <%= f.label :tdnt %><br />
+    <%= f.text_field :tdnt %>
+  </div>
+  <div class="field">
+    <%= f.label :phonetic %><br />
+    <%= f.text_field :phonetic %>
+  </div>
+  <div class="field">
+    <%= f.label :part_of_speech %><br />
+    <%= f.text_field :part_of_speech %>
+  </div>
+  <div class="field">
+    <%= f.label :st_def %><br />
+    <%= f.text_area :st_def %>
+  </div>
+  <div class="field">
+    <%= f.label :ipd_def %><br />
+    <%= f.text_area :ipd_def %>
+  </div>
+  <div class="field">
+    <%= f.label :dictionary %><br />
+    <%= f.text_field :dictionary %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

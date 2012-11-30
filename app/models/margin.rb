@@ -10,7 +10,7 @@ class Margin < ActiveRecord::Base
   end
   
   after_save do
-    verse.touch
+    # self.verse.touch
   end
   
   def verse

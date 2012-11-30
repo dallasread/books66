@@ -1,0 +1,55 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Code:</b>
+  <%= @lexicon.code %>
+</p>
+
+<p>
+  <b>Orig word:</b>
+  <%= @lexicon.orig_word %>
+</p>
+
+<p>
+  <b>Word orig:</b>
+  <%= @lexicon.word_orig %>
+</p>
+
+<p>
+  <b>Translit:</b>
+  <%= @lexicon.translit %>
+</p>
+
+<p>
+  <b>Tdnt:</b>
+  <%= @lexicon.tdnt %>
+</p>
+
+<p>
+  <b>Phonetic:</b>
+  <%= @lexicon.phonetic %>
+</p>
+
+<p>
+  <b>Part of speech:</b>
+  <%= @lexicon.part_of_speech %>
+</p>
+
+<p>
+  <b>St def:</b>
+  <%= @lexicon.st_def %>
+</p>
+
+<p>
+  <b>Ipd def:</b>
+  <%= @lexicon.ipd_def %>
+</p>
+
+<p>
+  <b>Dictionary:</b>
+  <%= @lexicon.dictionary %>
+</p>
+
+
+<%= link_to 'Edit', edit_lexicon_path(@lexicon) %> |
+<%= link_to 'Back', lexicons_path %>

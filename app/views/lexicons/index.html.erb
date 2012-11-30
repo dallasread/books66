@@ -1,0 +1,41 @@
+<h1>Listing lexicons</h1>
+
+<table>
+  <tr>
+    <th>Code</th>
+    <th>Orig word</th>
+    <th>Word orig</th>
+    <th>Translit</th>
+    <th>Tdnt</th>
+    <th>Phonetic</th>
+    <th>Part of speech</th>
+    <th>St def</th>
+    <th>Ipd def</th>
+    <th>Dictionary</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @lexicons.each do |lexicon| %>
+  <tr>
+    <td><%= lexicon.code %></td>
+    <td><%= lexicon.orig_word %></td>
+    <td><%= lexicon.word_orig %></td>
+    <td><%= lexicon.translit %></td>
+    <td><%= lexicon.tdnt %></td>
+    <td><%= lexicon.phonetic %></td>
+    <td><%= lexicon.part_of_speech %></td>
+    <td><%= lexicon.st_def %></td>
+    <td><%= lexicon.ipd_def %></td>
+    <td><%= lexicon.dictionary %></td>
+    <td><%= link_to 'Show', lexicon %></td>
+    <td><%= link_to 'Edit', edit_lexicon_path(lexicon) %></td>
+    <td><%= link_to 'Destroy', lexicon, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Lexicon', new_lexicon_path %>

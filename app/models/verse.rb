@@ -14,7 +14,11 @@ class Verse < ActiveRecord::Base
   
   def self.text_search(q)
     if q.present?
-      where("body @@ :q", q: q).includes(:book).order("books.ordinal asc, chapters.number asc, verses.number asc")
+      if q =~ /\d/
+        where("body @@ :q or body like :p", q: q, p: "%#{q}%").includes(:book).order("books.ordinal asc, chapters.number asc, verses.number asc")
+      else
+        where("body @@ :q", q: q).includes(:book).order("books.ordinal asc, chapters.number asc, verses.number asc")
+      end
     else
       scoped
     end

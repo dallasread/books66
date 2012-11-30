@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  code: MyString
+  orig_word: MyString
+  word_orig: MyString
+  translit: MyString
+  tdnt: MyString
+  phonetic: MyString
+  part_of_speech: MyString
+  st_def: MyText
+  ipd_def: MyText
+  dictionary: MyString
+
+two:
+  code: MyString
+  orig_word: MyString
+  word_orig: MyString
+  translit: MyString
+  tdnt: MyString
+  phonetic: MyString
+  part_of_speech: MyString
+  st_def: MyText
+  ipd_def: MyText
+  dictionary: MyString

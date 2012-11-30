@@ -5,6 +5,6 @@
 			<span class="verse_book_full"><%= verse.book.name %></span> 
 			<span class="verse_chapter_number"><%= verse.chapter.number %>:</span><span class="verse_number"><%= verse.number %></span>
 		</div>
-		<div class="verse_body"><%= verse.body %></div>
+		<div class="verse_body"><%= verse.body.html_safe %></div>
 	</div>
 <% end %>

@@ -29,6 +29,10 @@
 			.verse_body {
 				color: #777;
 				font-size: 13px;
+				
+				div {
+					display: inline;
+				}
 			}
 		
 			&.selected {

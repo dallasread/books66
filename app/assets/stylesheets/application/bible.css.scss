@@ -21,15 +21,3 @@
 		}
 	}
 }
-
-.word {
-	&:hover {
-		background: #FFFDB4;
-	}
-	
-	&.selected {
-		background: #ffed1f;
-		border-radius: 5px;
-		padding: 5px 3px;
-	}
-}

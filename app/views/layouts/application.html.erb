@@ -127,7 +127,7 @@
 		<% if cookies[:ref] %>
 			<% @ref = Chapter.find(cookies[:ref]) %>
 		<% else %>
-			<% @ref = Book.find_by_name("Genesis").chapters.first %>
+			<% @ref = Book.find_by_name("Gen").chapters.first %>
 		<% end %>
 		
 		<% if user_signed_in? %>

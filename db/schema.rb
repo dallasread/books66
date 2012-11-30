@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121114220927) do
+ActiveRecord::Schema.define(:version => 20121116030140) do
 
   create_table "books", :force => true do |t|
     t.string   "name"
@@ -54,6 +54,23 @@ ActiveRecord::Schema.define(:version => 20121114220927) do
     t.datetime "updated_at", :null => false
     t.integer  "story_id"
   end
+
+  create_table "lexicons", :force => true do |t|
+    t.string   "code"
+    t.string   "orig_word"
+    t.string   "word_orig"
+    t.string   "translit"
+    t.string   "tdnt"
+    t.string   "phonetic"
+    t.string   "part_of_speech"
+    t.text     "st_def"
+    t.text     "ipd_def"
+    t.string   "dictionary"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
+  add_index "lexicons", ["code"], :name => "index_lexicons_on_code"
 
   create_table "margins", :force => true do |t|
     t.string   "ref"

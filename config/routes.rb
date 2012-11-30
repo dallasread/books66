@@ -1,5 +1,8 @@
 Books66::Application.routes.draw do
   
+  resources :lexicons
+
+
   resources :translations
   
   #offline = Rack::Offline.configure do
